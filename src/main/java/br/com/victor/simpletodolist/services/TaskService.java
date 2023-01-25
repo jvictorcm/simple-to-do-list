@@ -46,7 +46,8 @@ public class TaskService {
     public Task updateTask(TaskInputDTO taskInputDTO, UUID id) {
         Task resultObject = taskRepository.findById(id).map(task -> {
             task.setTask(taskInputDTO.getTask());
-            return taskRepository.save(task);
+            taskRepository.save(task);
+            return task;
         }).orElseThrow(() -> {
             Task newTask = new Task(taskInputDTO);
             newTask = taskRepository.save(newTask);
