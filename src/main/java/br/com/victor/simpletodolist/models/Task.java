@@ -3,14 +3,19 @@ package br.com.victor.simpletodolist.models;
 
 import br.com.victor.simpletodolist.api.dtos.TaskInputDTO;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
+
 
 @Entity
 public class Task {
 
     @Id
+    @UuidGenerator
+    @GeneratedValue
     private UUID id;
     private String task;
 

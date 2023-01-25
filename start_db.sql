@@ -1,0 +1,4 @@
+CREATE TABLE task (
+    id UUID PRIMARY KEY,
+    task VARCHAR(100)
+);
