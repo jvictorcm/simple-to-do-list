@@ -5,6 +5,7 @@ import br.com.victor.simpletodolist.exceptions.TaskNotFoundException;
 import br.com.victor.simpletodolist.exceptions.TaskPutMappingCreation;
 import br.com.victor.simpletodolist.models.Task;
 import br.com.victor.simpletodolist.repositories.TaskRepository;
+import br.com.victor.simpletodolist.validators.TaskValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Service
 public class TaskService {
+
     @Autowired
     TaskRepository taskRepository;
 
@@ -34,6 +36,7 @@ public class TaskService {
     }
 
     public Task createTask(TaskInputDTO taskInputDTO) {
+        TaskValidator.validateTaskName(taskInputDTO.getTask());
         Task newTask = new Task(taskInputDTO);
         newTask = taskRepository.save(newTask);
         return newTask;
@@ -44,6 +47,7 @@ public class TaskService {
     }
 
     public Task updateTask(TaskInputDTO taskInputDTO, UUID id) {
+        TaskValidator.validateTaskName(taskInputDTO.getTask());
         Task resultObject = taskRepository.findById(id).map(task -> {
             task.setTask(taskInputDTO.getTask());
             taskRepository.save(task);
